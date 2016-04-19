@@ -20,7 +20,9 @@ $(document).ready(function(){
     var sounds = [greenSound, redSound, blueSound, yellowSound];
     var simonSounds = [];
     var count = 0;
+    // is number of moves
     var i = 0;
+    // j just loops the moves from 1 to i
     var j = 0;
     
     // reset board function
@@ -57,24 +59,40 @@ $(document).ready(function(){
     
     function greenPushed(){
         green.fadeOut(200).fadeIn(200);
+        if(sounds[0].paused !== true)
+            {
+                sounds[0].currentTime = 0;
+            }
         (sounds[0]).play(); 
         return moves[0];
     }
     
     function redPushed(){
         red.fadeOut(200).fadeIn(200);
+        if(sounds[1].paused !== true)
+            {
+                sounds[1].currentTime = 0;
+            }
         (sounds[1]).play();
         return moves[1];
     }
     
     function bluePushed(){
         blue.fadeOut(200).fadeIn(200);
+        if(sounds[2].paused !== true)
+            {
+                sounds[2].currentTime = 0;
+            }
         (sounds[2]).play(); 
         return moves[2];
     }
     
     function yellowPushed(){
         yellow.fadeOut(200).fadeIn(200);
+        if(sounds[3].paused !== true)
+            {
+                sounds[3].currentTime = 0;
+            }
         (sounds[3]).play();
         return moves[3];
     }
@@ -82,6 +100,10 @@ $(document).ready(function(){
     function gameMoves(simon, i){
         if(i < simon.length)
                     {
+                        green.css('pointer-events', 'none');
+                        red.css('pointer-events', 'none');
+                        blue.css('pointer-events', 'none');
+                        yellow.css('pointer-events', 'none');
                         setTimeout(function(){
                             if(simon[i] === "green")
                                 {
@@ -101,19 +123,31 @@ $(document).ready(function(){
                                 }
                             i++;
                             gameMoves(simon, i);
-                           }, 1000); 
+                           }, 700); 
                     }
-        j = 0;
+        else
+            {
+                j = 0;
+                green.css('pointer-events', 'auto');
+                red.css('pointer-events', 'auto');
+                blue.css('pointer-events', 'auto');
+                yellow.css('pointer-events', 'auto');   
+            }
     }
     
     
     function newMove(player, j){
-        console.log("a new move was made by simon");
         num = Math.floor(4*Math.random());
         simon.push(moves[num]);
         simonSounds.push(sounds[num]);
         i = 0;
         gameMoves(simon, i);
+        count++;
+                if(count < 10)
+                    {
+                        count = "0" + count;
+                    }
+        $("p").text(count);
         buttons(simon, j, player);
     }
     
@@ -121,68 +155,87 @@ $(document).ready(function(){
         i = 0;
         setTimeout(function()
         {
-           //failureSound.play();    
-        }, 1000);
+            failureSound.play();    
+        }, 10);
         setTimeout(function()
         {
-           //waits for failute sound to finish    
-        }, 4000);
-        gameMoves(simon, i);
-        buttons(simon, j, player); 
+            //waits for failure sound to finish
+            gameMoves(simon, i);
+            buttons(simon, j, player); 
+        }, 2750);
     }
     
     function playerInput(simon, player, j){
-        while (j < simon.length)  
+        if (j < simon.length)  
             {
-                console.log(j);
-                console.log(player);
-                console.log(simon);
                 if(simon[j] === player[j] && j != simon.length-1)
                 {
-                    console.log("player pressed the correct button");
                     j++;
                     buttons(simon, j, player);
                 }
                 else if(simon[j] === player[j] && simon.length < 20)
                     {
-                        console.log("player pressed the correct button and it was the last in the chain");
                         j = 0;
                         player.length = 0;
                         newMove(player, j);
+                    }
+                else if(simon[j] === player[j] && simon.length === 20)
+                    {
+                        successSound.play();
+                        setTimeout(function()
+                        {
+                            reset();
+                            newMove(player, j);
+                        }, 1000);
                     }
                 else
                 {
                     if(strict === true)
                     {
+                        green.css('pointer-events', 'none');
+                        red.css('pointer-events', 'none');
+                        blue.css('pointer-events', 'none');
+                        yellow.css('pointer-events', 'none');
                         reset();
-                        return; 
+                        setTimeout(function()
+                        {
+                            failureSound.play();
+                            count = "00"; 
+                            $("p").text(count);
+                        }, 250);
+                        setTimeout(function()
+                        {
+                            //waits for failure sound to finish
+                            j = 0;
+                            newMove(player, j); 
+                        }, 2750);
+ 
                     }
                     else
                     {
-                        console.log("player pressed the wrong button");
+                        green.css('pointer-events', 'none');
+                        red.css('pointer-events', 'none');
+                        blue.css('pointer-events', 'none');
+                        yellow.css('pointer-events', 'none');
                         player.length = 0;
                         repeatMoves(player);
                         return;
                     }
                 }
-            }
-        if(simon.length > 20)
-        {
-            alert("You win!!!");
-            successSound.play();
-            reset();
-        }   
+            } 
     }
     
     function buttons(simon, j, player){
-        console.log("function buttons was entered");
+        green.css('pointer-events', 'auto');
+        red.css('pointer-events', 'auto');
+        blue.css('pointer-events', 'auto');
+        yellow.css('pointer-events', 'auto');
         green.css('cursor', 'pointer');
         red.css('cursor', 'pointer');
         blue.css('cursor', 'pointer');
         yellow.css('cursor', 'pointer');
         $(".simon-button").off();
         $(".simon-button").click(function(){
-            alert("player pressed a button");
             if($(this).hasClass("green-button"))
                 {
                     player.push(greenPushed());
@@ -241,12 +294,13 @@ $(document).ready(function(){
                 $(this).toggleClass('on');
                 reset();
                 newMove(player, j);
-                count++;
-                if(count < 10)
-                    {
-                        count = "0" + count;
-                    }
-                $("p").text(count);
+                start = true;
+            }
+            else
+            {
+                $(this).toggleClass('on');
+                reset();
+                start = false;
             }
         }
     });

@@ -9,7 +9,7 @@
 }
 
 html { 
-  background: url(images/living-room-background.jpg) no-repeat center center fixed; 
+  background: url(../images/living-room-background.jpg) no-repeat center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -50,7 +50,7 @@ h1 {
     background-color: #191919;
     height: 400px;
     width: 400px;
-    margin-right: 100px;
+    margin-right: 10%;
     border-radius: 50%;
     display: inline-block;
     float: right;
@@ -123,7 +123,7 @@ h1 {
     height: 250px;
     width: 250px;
     border-radius: 10px;
-    margin-left: 100px;
+    margin-left: 20%;
     margin-top: 30px;
     display: inline-block;
     float: left;
@@ -168,11 +168,11 @@ Implemented it for the start and strict button as well. It's very fancy
 
 @font-face {
   font-family: "FontAwesome";
-  src: url("fonts/fontawesome-webfont.eot");
-  src: url("fonts/fontawesome-webfont.eot?#iefix") format('eot'), 
-  	   url("fonts/fontawesome-webfont.woff") format('woff'), 
-  	   url("fonts/fontawesome-webfont.ttf") format('truetype'), 
-  	   url("fonts/fontawesome-webfont.svg#FontAwesome") format('svg');
+  src: url("../fonts/fontawesome-webfont.eot");
+  src: url("../fonts/fontawesome-webfont.eot?#iefix") format('eot'), 
+  	   url("../fonts/fontawesome-webfont.woff") format('woff'), 
+  	   url("../fonts/fontawesome-webfont.ttf") format('truetype'), 
+  	   url("../fonts/fontawesome-webfont.svg#FontAwesome") format('svg');
   font-weight: normal;
   font-style: normal;
 }

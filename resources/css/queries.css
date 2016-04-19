@@ -1,0 +1,81 @@
+/* Query Sizing */
+
+@media only screen and (max-width: 1023px){
+    .background-square {
+        margin-left: 15%;
+    }
+    .background-circle {
+        margin-right: 8%;
+    }
+}
+
+@media only screen and (max-width: 924px){
+    .background-square {
+        margin-left: 12%;
+    }
+    .background-circle {
+        margin-right: 5%;
+    }
+}
+
+@media only screen and (max-width: 800px){
+    .background-square {
+        margin-left: 8%;
+    }
+    .background-circle {
+        margin-right: 2%;
+    }
+}
+    
+@media only screen and (max-width: 750px){
+    .background-square {
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+        float: none;
+    }
+    .background-circle {
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+        float: none;
+        margin-top: 15px;
+    }
+    h1 {
+        font-size: 500%;
+        padding-left: 100px;
+    }
+}
+
+@media only screen and (max-width: 585px){
+    h1 {
+        font-size: 450%;
+        padding-left: 80px;
+        width: 500px;
+    }
+}
+
+@media only screen and (max-width: 500px){
+    h1 {
+        font-size: 400%;
+        padding-left: 80px;
+        width: 450px;
+    }
+}
+
+@media only screen and (max-width: 450px){
+    h1 {
+        font-size: 400%;
+        padding-left: 50px;
+        width: 420px;
+    }
+}
+
+@media only screen and (max-width: 400px){
+    h1 {
+        font-size: 400%;
+        padding-left: 40px;
+        width: 400px;
+    }
+}
+
