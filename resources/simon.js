@@ -123,7 +123,7 @@ $(document).ready(function(){
                                 }
                             i++;
                             gameMoves(simon, i);
-                           }, 700); 
+                           }, 1000); 
                     }
         else
             {
